@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVLZ Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a0000 0%, #000000 100%);
+            border-bottom: 2px solid #cc0000;
+            padding: 25px 0;
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #cc0000;
+            letter-spacing: 3px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            background: #cc0000;
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: #ff0000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #cc0000;
+        }
+
+        .btn-secondary:hover {
+            background: #cc0000;
+        }
+
+        .main-section {
+            display: none;
+        }
+
+        .main-section.active {
+            display: block;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .welcome-section h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            color: #cc0000;
+            font-weight: 700;
+        }
+
+        .welcome-section p {
+            font-size: 20px;
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a0000 0%, #000000 100%);
+            border: 2px solid #cc0000;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #cc0000;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #cccccc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1a1a1a;
+            padding: 40px;
+            border: 2px solid #cc0000;
+        }
+
+        .form-container h2 {
+            color: #cc0000;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            background: #0a0a0a;
+            border: 2px solid #333333;
+            color: #ffffff;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #cc0000;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-actions button {
+            flex: 1;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .member-card {
+            background: #1a1a1a;
+            border: 2px solid #333333;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover {
+            border-color: #cc0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.3);
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333333;
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #cc0000 0%, #660000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .member-info h3 {
+            font-size: 20px;
+            color: #cc0000;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            color: #999999;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .member-details {
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .detail-label {
+            color: #999999;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .member-bio {
+            color: #cccccc;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .member-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .member-actions button {
+            flex: 1;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .profile-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            background: #1a1a1a;
+            border: 2px solid #cc0000;
+            padding: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #cc0000 0%, #660000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .profile-info h2 {
+            font-size: 32px;
+            color: #cc0000;
+            margin-bottom: 10px;
+        }
+
+        .profile-meta {
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .profile-content {
+            background: #1a1a1a;
+            border: 2px solid #333333;
+            padding: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            padding: 20px;
+            background: #0a0a0a;
+            border-left: 3px solid #cc0000;
+        }
+
+        .info-item-label {
+            color: #999999;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-item-value {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #cc0000;
+            background: #1a0000;
+            color: #ffffff;
+        }
+
+        .alert.success {
+            border-left-color: #00cc00;
+            background: #001a00;
+        }
+
+        .search-bar {
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666666;
+        }
+
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #999999;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .welcome-section h1 {
+                font-size: 36px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">DVLZ COMMUNITY</div>
+            <nav class="nav-buttons">
+                <button onclick="showSection('home')">HOME</button>
+                <button onclick="showSection('members')">MEMBERS</button>
+                <button onclick="showSection('profile')" id="profileBtn" style="display: none;">PROFILE</button>
+                <button onclick="showSection('join')" id="joinBtn">JOIN</button>
+                <button onclick="logout()" id="logoutBtn" style="display: none;" class="btn-secondary">LOGOUT</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="homeSection" class="main-section active">
+            <div class="welcome-section">
+                <h1>WELCOME TO DVLZ</h1>
+                <p>Platform Eksklusif Untuk Developer Malaysia</p>
+                <button onclick="showSection('join')" style="padding: 15px 40px; font-size: 16px;">JOIN SEKARANG</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMembers">0</div>
+                    <div class="stat-label">Total Ahli</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeDevelopers">0</div>
+                    <div class="stat-label">Active Developers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalProjects">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="yearsActive">1</div>
+                    <div class="stat-label">Years Active</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="joinSection" class="main-section">
+            <div class="form-container">
+                <h2>Join Community</h2>
+                <div id="joinAlert"></div>
+                <form id="joinForm" onsubmit="handleJoin(event)">
+                    <div class="form-group">
+                        <label>Nama Penuh</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Keahlian</label>
+                        <select id="expertise" required>
+                            <option value="">Pilih Keahlian</option>
+                            <option value="Frontend Developer">Frontend Developer</option>
+                            <option value="Backend Developer">Backend Developer</option>
+                            <option value="Full Stack Developer">Full Stack Developer</option>
+                            <option value="Mobile Developer">Mobile Developer</option>
+                            <option value="DevOps Engineer">DevOps Engineer</option>
+                            <option value="UI/UX Designer">UI/UX Designer</option>
+                            <option value="Data Scientist">Data Scientist</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pengalaman (Tahun)</label>
+                        <input type="number" id="experience" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea id="bio" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit">JOIN COMMUNITY</button>
+                        <button type="button" class="btn-secondary" onclick="showSection('home')">CANCEL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="membersSection" class="main-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Cari ahli..." onkeyup="searchMembers()">
+            </div>
+            <div id="membersGrid" class="members-grid"></div>
+            <div id="emptyMembers" class="empty-state" style="display: none;">
+                <h3>Tiada Ahli Lagi</h3>
+                <p>Jadilah yang pertama untuk join community</p>
+            </div>
+        </div>
+
+        <div id="profileSection" class="main-section">
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar"></div>
+                    <div class="profile-info">
+                        <h2 id="profileName"></h2>
+                        <div class="profile-meta" id="profileMeta"></div>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div id="profileAlert"></div>
+                    <form id="profileForm" onsubmit="updateProfile(event)">
+                        <div class="info-grid">
+                            <div class="form-group">
+                                <label>Nama Penuh</label>
+                                <input type="text" id="editFullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="editEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Keahlian</label>
+                                <select id="editExpertise" required>
+                                    <option value="Frontend Developer">Frontend Developer</option>
+                                    <option value="Backend Developer">Backend Developer</option>
+                                    <option value="Full Stack Developer">Full Stack Developer</option>
+                                    <option value="Mobile Developer">Mobile Developer</option>
+                                    <option value="DevOps Engineer">DevOps Engineer</option>
+                                    <option value="UI/UX Designer">UI/UX Designer</option>
+                                    <option value="Data Scientist">Data Scientist</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pengalaman (Tahun)</label>
+                                <input type="number" id="editExperience" min="0" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Bio</label>
+                            <textarea id="editBio" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit">UPDATE PROFILE</button>
+                            <button type="button" class="btn-secondary" onclick="showSection('home')">CANCEL</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let members = [];
+        let currentUser = null;
+
+        function init() {
+            const storedMembers = localStorage.getItem('dvlzMembers');
+            const storedUser = localStorage.getItem('dvlzCurrentUser');
+            
+            if (storedMembers) {
+                members = JSON.parse(storedMembers);
+            }
+            
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateUIForLoggedInUser();
+            }
+            
+            updateStats();
+            renderMembers();
+        }
+
+        function updateUIForLoggedInUser() {
+            document.getElementById('joinBtn').style.display = 'none';
+            document.getElementById('profileBtn').style.display = 'inline-block';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+        }
+
+        function updateUIForLoggedOutUser() {
+            document.getElementById('joinBtn').style.display = 'inline-block';
+            document.getElementById('profileBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+
+        function showSection(section) {
+            const sections = document.querySelectorAll('.main-section');
+            sections.forEach(s => s.classList.remove('active'));
+            
+            document.getElementById(section + 'Section').classList.add('active');
+            
+            if (section === 'profile' && currentUser) {
+                loadProfileData();
+            }
+            
+            if (section === 'members') {
+                renderMembers();
+            }
+        }
+
+        function handleJoin(event) {
+            event.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const expertise = document.getElementById('expertise').value;
+            const experience = parseInt(document.getElementById('experience').value);
+            const bio = document.getElementById('bio').value.trim();
+            
+            const usernameExists = members.some(m => m.username.toLowerCase() === username.toLowerCase());
+            if (usernameExists) {
+                showAlert('joinAlert', 'Username sudah digunakan. Sila pilih username lain.', 'error');
+                return;
+            }
+            
+            const emailExists = members.some(m => m.email.toLowerCase() === email.toLowerCase());
+            if (emailExists) {
+                showAlert('joinAlert', 'Email sudah didaftarkan.', 'error');
+                return;
+            }
+            
+            const member = {
+                id: Date.now(),
+                fullName,
+                email,
+                username,
+                expertise,
+                experience,
+                bio,
+                joinedDate: new Date().toLocaleDateString('ms-MY')
+            };
+            
+            members.push(member);
+            currentUser = member;
+            
+            localStorage.setItem('dvlzMembers', JSON.stringify(members));
+            localStorage.setItem('dvlzCurrentUser', JSON.stringify(currentUser));
+            
+            updateStats();
+            updateUIForLoggedInUser();
+            
+            document.getElementById('joinForm').reset();
+            showAlert('joinAlert', 'Berjaya join DVLZ Community!', 'success');
+            
+            setTimeout(() => {
+                showSection('home');
+            }, 1500);
+        }
+
+        function updateProfile(event) {
+            event.preventDefault();
+            
+            if (!currentUser) return;
+            
+            const fullName = document.getElementById('editFullName').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
+            const expertise = document.getElementById('editExpertise').value;
+            const experience = parseInt(document.getElementById('editExperience').value);
+            const bio = document.getElementById('editBio').value.trim();
+            
+            const emailExists = members.some(m => m.id !== currentUser.id && m.email.toLowerCase() === email.toLowerCase());
+            if (emailExists) {
+                showAlert('profileAlert', 'Email sudah digunakan oleh ahli lain.', 'error');
+                return;
+            }
+            
+            const memberIndex = members.findIndex(m => m.id === currentUser.id);
+            if (memberIndex !== -1) {
+                members[memberIndex] = {
+                    ...members[memberIndex],
+                    fullName,
+                    email,
+                    expertise,
+                    experience,
+                    bio
+                };
+                
+                currentUser = members[memberIndex];
+                
+                localStorage.setItem('dvlzMembers', JSON.stringify(members));
+                localStorage.setItem('dvlzCurrentUser', JSON.stringify(currentUser));
+                
+                updateStats();
+                renderMembers();
+                
+                showAlert('profileAlert', 'Profile berjaya dikemaskini!', 'success');
+                
+                setTimeout(() => {
+                    document.getElementById('profileAlert').innerHTML = '';
+                }, 3000);
+            }
+        }
+
+        function loadProfileData() {
+            if (!currentUser) return;
+            
+            document.getElementById('profileAvatar').textContent = currentUser.fullName.charAt(0).toUpperCase();
+            document.getElementById('profileName').textContent = currentUser.fullName;
+            document.getElementById('profileMeta').textContent = `@${currentUser.username} | ${currentUser.expertise}`;
+            
+            document.getElementById('editFullName').value = currentUser.fullName;
+            document.getElementById('editEmail').value = currentUser.email;
+            document.getElementById('editExpertise').value = currentUser.expertise;
+            document.getElementById('editExperience').value = currentUser.experience;
+            document.getElementById('editBio').value = currentUser.bio;
+        }
+
+        function renderMembers() {
+            const grid = document.getElementById('membersGrid');
+            const empty = document.getElementById('emptyMembers');
+            
+            if (members.length === 0) {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            empty.style.display = 'none';
+            
+            grid.innerHTML = members.map(member => `
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">${member.fullName.charAt(0).toUpperCase()}</div>
+                        <div class="member-info">
+                            <h3>${member.fullName}</h3>
+                            <div class="member-role">${member.expertise}</div>
+                        </div>
+                    </div>
+                    <div class="member-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Username</span>
+                            <span class="detail-value">@${member.username}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Experience</span>
+                            <span class="detail-value">${member.experience} Tahun</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Join Date</span>
+                            <span class="detail-value">${member.joinedDate}</span>
+                        </div>
+                    </div>
+                    <div class="member-bio">${member.bio}</div>
+                </div>
+            `).join('');
+        }
+
+        function searchMembers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('membersGrid');
+            
+            if (searchTerm === '') {
+                renderMembers();
+                return;
+            }
+            
+            const filtered = members.filter(m => 
+                m.fullName.toLowerCase().includes(searchTerm) ||
+                m.username.toLowerCase().includes(searchTerm) ||
+                m.expertise.toLowerCase().includes(searchTerm)
+            );
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><h3>Tiada Hasil Ditemui</h3></div>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(member => `
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">${member.fullName.charAt(0).toUpperCase()}</div>
+                        <div class="member-info">
+                            <h3>${member.fullName}</h3>
+                            <div class="member-role">${member.expertise}</div>
+                        </div>
+                    </div>
+                    <div class="member-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Username</span>
+                            <span class="detail-value">@${member.username}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Experience</span>
+                            <span class="detail-value">${member.experience} Tahun</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Join Date</span>
+                            <span class="detail-value">${member.joinedDate}</span>
+                        </div>
+                    </div>
+                    <div class="member-bio">${member.bio}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            document.getElementById('totalMembers').textContent = members.length;
+            document.getElementById('activeDevelopers').textContent = members.filter(m => m.experience > 0).length;
+            document.getElementById('totalProjects').textContent = members.reduce((sum, m) => sum + m.experience, 0);
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('dvlzCurrentUser');
+            updateUIForLoggedOutUser();
+            showSection('home');
+        }
+
+        function showAlert(elementId, message, type) {
+            const alertDiv = document.getElementById(elementId);
+            alertDiv.innerHTML = `<div class="alert ${type === 'success' ? 'success' : ''}">${message}</div>`;
+            
+            setTimeout(() => {
+                alertDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
